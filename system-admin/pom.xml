@@ -36,7 +36,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.bn.Application</mainClass>
+                    <mainClass>com.bn.admin.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
