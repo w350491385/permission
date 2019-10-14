@@ -3,17 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bn</groupId>
-    <artifactId>permission</artifactId>
+    <artifactId>system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>system-task</module>
         <module>system-data</module>
         <module>system-admin</module>
         <module>system-common</module>
+        <module>system-taskCenter</module>
+        <module>system-taskCore</module>
     </modules>
     <name>permission</name>
     <packaging>pom</packaging>
-    <description>Shiro 权限管理系统</description>
+    <description>管理系统</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,6 +30,7 @@
         <java.version>1.8</java.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <fastjson.version>1.2.48</fastjson.version>
+        <skip.test.flag>true</skip.test.flag>
     </properties>
 
     <!-- 依赖配置 -->
@@ -132,11 +135,29 @@
     </dependencies>
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.bn.admin.Application</mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <skip>${skip.test.flag}</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <skip>${skip.test.flag}</skip>
                 </configuration>
             </plugin>
         </plugins>
