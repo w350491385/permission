@@ -1,7 +1,7 @@
 package com.goufn.permission.controller;
 
 import com.goufn.permission.common.page.PageRequest;
-import com.goufn.permission.common.result.CommonResult;
+import com.goufn.permission.common.result.Result;
 import com.goufn.permission.service.SysLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class SysLogController {
 
     @RequiresPermissions("sys:log:view")
     @PostMapping(value="/findPage")
-    public CommonResult findPage(@RequestBody PageRequest pageRequest) {
-        return CommonResult.success(sysLogService.findPage(pageRequest));
+    public Result findPage(@RequestBody PageRequest pageRequest) {
+        return Result.success(sysLogService.findPage(pageRequest));
     }
 }

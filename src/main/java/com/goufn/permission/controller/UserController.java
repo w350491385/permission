@@ -2,7 +2,7 @@ package com.goufn.permission.controller;
 
 import com.goufn.permission.annotation.Log;
 import com.goufn.permission.common.page.PageRequest;
-import com.goufn.permission.common.result.CommonResult;
+import com.goufn.permission.common.result.Result;
 import com.goufn.permission.model.SysUser;
 import com.goufn.permission.service.UserService;
 import com.goufn.permission.utils.PasswordUtil;
@@ -21,18 +21,18 @@ public class UserController {
     @Log("新增/修改用户")
     @RequiresPermissions({"sys:user:add", "sys:user:edit"})
     @PostMapping(value="/save")
-    public CommonResult save(@RequestBody SysUser record) {
+    public Result save(@RequestBody SysUser record) {
         SysUser user = userService.findById(record.getId());
         if(user != null) {
             if("admin".equalsIgnoreCase(user.getName())) {
-                return CommonResult.error("超级管理员不允许修改!");
+                return Result.error("超级管理员不允许修改!");
             }
         }
         if(record.getPassword() != null) {
             if(user == null) {
                 // 新增用户
                 if(userService.findByName(record.getName()) != null) {
-                    return CommonResult.error("用户名已存在!");
+                    return Result.error("用户名已存在!");
                 }
                 PasswordUtil.encryptPassword(record);
             } else {
@@ -42,44 +42,44 @@ public class UserController {
                 }
             }
         }
-        return CommonResult.success(userService.save(record));
+        return Result.success(userService.save(record));
     }
 
     @Log("删除用户")
     @RequiresPermissions("sys:user:delete")
     @PostMapping(value="/delete")
-    public CommonResult delete(@RequestBody List<SysUser> records) {
+    public Result delete(@RequestBody List<SysUser> records) {
         for(SysUser record : records) {
             SysUser sysUser = userService.findById(record.getId());
             if(sysUser != null && "admin".equalsIgnoreCase(sysUser.getName())) {
-                return CommonResult.error("超级管理员不允许删除!");
+                return Result.error("超级管理员不允许删除!");
             }
         }
-        return CommonResult.success(userService.delete(records));
+        return Result.success(userService.delete(records));
     }
 
     @RequiresPermissions("sys:user:view")
     @GetMapping(value="/findByName")
-    public CommonResult findByUserName(@RequestParam String name) {
-        return CommonResult.success(userService.findByName(name));
+    public Result findByUserName(@RequestParam String name) {
+        return Result.success(userService.findByName(name));
     }
 
     @RequiresPermissions("sys:user:view")
     @GetMapping(value="/findPermissions")
-    public CommonResult findPermissions(@RequestParam String name) {
-        return CommonResult.success(userService.findPermissions(name));
+    public Result findPermissions(@RequestParam String name) {
+        return Result.success(userService.findPermissions(name));
     }
 
     @RequiresPermissions("sys:user:view")
     @GetMapping(value="/findUserRoles")
-    public CommonResult findUserRoles(@RequestParam Long userId) {
-        return CommonResult.success(userService.findUserRoles(userId));
+    public Result findUserRoles(@RequestParam Long userId) {
+        return Result.success(userService.findUserRoles(userId));
     }
 
     @Log("查看用户")
     @RequiresPermissions("sys:user:view")
     @PostMapping(value="/findPage")
-    public CommonResult findPage(@RequestBody PageRequest pageRequest) {
-        return CommonResult.success(userService.findPage(pageRequest));
+    public Result findPage(@RequestBody PageRequest pageRequest) {
+        return Result.success(userService.findPage(pageRequest));
     }
 }
