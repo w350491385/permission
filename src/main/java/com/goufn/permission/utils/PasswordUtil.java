@@ -5,11 +5,6 @@ import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-/**
- * @Author 10319
- * @Date 2019/6/13 22:10
- * @Version 1.0
- */
 public class PasswordUtil {
     /** 盐生成 */
     private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();

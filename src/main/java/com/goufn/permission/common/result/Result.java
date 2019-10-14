@@ -2,7 +2,6 @@ package com.goufn.permission.common.result;
 
 /**
  * 通用返回对象
- * Created by macro on 2019/4/19.
  */
 public class Result<T> {
     private long code;
